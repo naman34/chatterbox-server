@@ -1,7 +1,8 @@
 //var express = require('express'); //Express FTW :(
 var path = require('path');
 //var app = express();
-var chats = require('./routes/chats.js');
+var get = require('./routes/chats.js').get;
+var post = require('./routes/chats.js').post;
 var returnFile = require('./routes/static.js').returnFile;
 
 //CORS headers, defined up top for clarity
@@ -35,12 +36,20 @@ module.exports.handler = function(req, res) {
     filePath = "./../client/" + req.url;
     returnFile(req, res, filePath, contentType);
   } else if( req.url.match(/^\/images\//) ) {
-    contentType = 'text/css';
+    contentType = 'image/gif';
     filePath = "./../client/" + req.url;
     returnFile(req, res, filePath, contentType, true);
+  } else if(req.url.match(/^\/classes\/[\w]+/) && req.method === "GET"){
+    headers['Content-Type'] = "text/json";
+    res.writeHead(200, headers);
+    get(req, res);
+  } else if(req.url.match(/^\/classes\/[\w]+/) && req.method === "POST"){
+    headers['Content-Type'] = "text/json";
+    res.writeHead(201, headers);
+    post(req, res);
   } else {
     res.writeHead(404, headers);
-    res.end("404: File Not Found!");
+    res.end("404 - File Not Found!");
   }
 };
 
@@ -82,7 +91,7 @@ module.exports.handler = function(req, res) {
 //   next();
 // });
 
-// app.get('/', express.static(path.join(__dirname, '../client/index.html')));
+//  app.get('/', express.static(path.join(__dirname, '../client/index.html')));
 // app.post('/classes/:roomname', function(req, res){
 //   console.log(req.body);
 //   console.log(req.url);
