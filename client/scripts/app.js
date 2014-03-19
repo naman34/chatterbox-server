@@ -2,7 +2,7 @@ var app = window.app = {};
 
 app.init = function(){
 
-  app.server = "http://127.0.0.1:3000/classes/chatterbox";
+  app.server = "http://chattery.azurewebsites.net/classes/chatterbox";
   app.wordRegEx = /^[a-zA-Z0-9\_]+$/;
   app.roomsRegEx = /^#\/room\/[\w]+\/?/;
   app.timeInterval = 1000;
