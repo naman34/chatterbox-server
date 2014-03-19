@@ -1,6 +1,6 @@
 var mongojs = require('mongojs');
 
-var db = mongojs('chatterbox:chatterboxer@oceanic.mongohq.com:10046/storminNorman', ['chats']);
+var db = mongojs(process.env.mongourl || 'chatterbox', ['chats']);
 
 exports.get = function(req, res){
 
