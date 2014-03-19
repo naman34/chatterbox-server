@@ -29,7 +29,6 @@ exports.get = function(req, res){
   }
   db.chats.find(filter).sort(sorter, function(err, messages){
     if(!!err){
-      console.log(err);
       return res.send(500, "An error occured. Sorry!");
     }
     res.send({
@@ -41,8 +40,6 @@ exports.get = function(req, res){
 
 
 exports.post = function(req, res){
-
-  console.log(req.body);
   var message = req.body;
   message.text = message.text || "nothing";
   message.username = message.username || "nothing";
